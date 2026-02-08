@@ -1,0 +1,69 @@
+/* Fondo y tipografía */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('fondo.jpg') center/cover no-repeat fixed;
+}
+
+/* Capa oscura encima del fondo */
+.overlay {
+    background: rgba(0, 0, 0, 0.7);
+    min-height: 100vh;
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+/* Grid de productos */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* Tarjetas individuales */
+.card {
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+    position: relative;
+}
+
+/* Efecto hover */
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Imagen dentro de la tarjeta */
+.card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Botón de WhatsApp */
+.card a {
+    display: block;
+    background: #25D366;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Indicador de sin stock */
+.out-of-stock {
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    border-radius: 5px;
+}
