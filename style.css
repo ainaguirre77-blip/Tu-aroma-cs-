@@ -1,0 +1,5 @@
+body{margin:0;font-family:Arial;background:url('fondo.jpg') center/cover no-repeat fixed;}
+.overlay{background:rgba(0,0,0,.7);min-height:100vh;color:white;text-align:center;padding:40px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
+.card{background:#111;padding:20px;border-radius:10px;}
+.card a{display:block;background:#25D366;color:white;padding:10px;text-decoration:none;border-radius:6px;}
