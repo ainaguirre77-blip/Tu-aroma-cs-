@@ -6,14 +6,12 @@
 <title>Tu Aroma CS | Perfumes Importados</title>
 
 <style>
-
 body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
 background:url("Img/fondo.jpg.avif") no-repeat center center fixed;
 background-size:cover;
 color:white;
-scroll-behavior:smooth;
 }
 
 .overlay{
@@ -23,7 +21,7 @@ min-height:100vh;
 
 header{
 text-align:center;
-padding:40px 20px 20px 20px;
+padding:30px 20px;
 }
 
 header h1{
@@ -35,39 +33,36 @@ header p{
 opacity:0.8;
 }
 
-.navbar{
-position:sticky;
-top:0;
-background:black;
+nav{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
 padding:15px;
-text-align:center;
-z-index:1000;
 }
 
-.navbar a{
-display:inline-block;
-margin:5px;
-padding:10px 15px;
-background:#111;
+nav a{
+background:#ffffff20;
 color:white;
-text-decoration:none;
+padding:8px 14px;
 border-radius:8px;
+text-decoration:none;
 font-size:14px;
 transition:0.3s;
 }
 
-.navbar a:hover{
+nav a:hover{
 background:#25D366;
 }
 
 .seccion{
-padding:60px 20px;
+padding:40px 20px;
 }
 
 .seccion h2{
 text-align:center;
-margin-bottom:40px;
-font-size:28px;
+margin-bottom:30px;
+font-size:26px;
 }
 
 .grid{
@@ -136,10 +131,9 @@ border-radius:6px;
 
 footer{
 text-align:center;
-padding:40px;
+padding:30px;
 opacity:0.7;
 }
-
 </style>
 </head>
 
@@ -151,14 +145,14 @@ opacity:0.7;
 <p>Perfumes Importados G5 · Envíos a todo Argentina</p>
 </header>
 
-<div class="navbar">
+<nav>
 <a href="#masvendidos">🔥 Más Vendidos</a>
 <a href="#recomendados">👑 Recomendados</a>
 <a href="#hombre">🧔 Hombre</a>
 <a href="#mujer">💎 Mujer</a>
 <a href="#unisex">🌿 Unisex</a>
-<a href="#todo">📦 Todo el Stock</a>
-</div>
+<a href="#stock">📦 Todo el Stock</a>
+</nav>
 
 <div id="contenido"></div>
 
@@ -226,30 +220,42 @@ const productos = [
 {codigo:2151,nombre:"Hawas Ice 100ml",precio:"$60.750",categoria:"masculino"}
 ];
 
+function imagenProducto(codigo){
+return `
+<picture>
+<source srcset="Img/IMG_${codigo}.WEBP">
+<source srcset="Img/IMG_${codigo}.JPG">
+<source srcset="Img/IMG_${codigo}.PNG">
+<img src="Img/IMG_${codigo}.JPG">
+</picture>`;
+}
+
 function crearSeccion(id,titulo,filtro){
 let html = `<section id="${id}" class="seccion"><h2>${titulo}</h2><div class="grid">`;
+
 productos.filter(filtro).forEach(p=>{
 html += `
 <div class="card">
 ${p.stock===false?'<div class="sin-stock">SIN STOCK</div>':''}
-<img src="Img/IMG_${p.codigo}.JPG">
+${imagenProducto(p.codigo)}
 <h3>${p.nombre}</h3>
 <div class="precio">${p.precio}</div>
 ${p.stock===false?'':
 `<a class="boton" target="_blank" href="https://wa.me/${numeroWhatsApp}?text=Hola!%20Quiero%20${encodeURIComponent(p.nombre)}">Comprar</a>`}
 </div>`;
 });
+
 html += `</div></section>`;
 return html;
 }
 
 document.getElementById("contenido").innerHTML =
-crearSeccion("masvendidos","🔥 Más Vendidos", p=>[2101,2102,2103,2146,2151].includes(p.codigo))+
-crearSeccion("recomendados","👑 Recomendados", p=>[2117,2118,2121,2139,2143].includes(p.codigo))+
-crearSeccion("hombre","🧔 Hombre", p=>p.categoria==="masculino")+
-crearSeccion("mujer","💎 Mujer", p=>p.categoria==="femenino")+
-crearSeccion("unisex","🌿 Unisex", p=>p.categoria==="unisex")+
-crearSeccion("todo","📦 Todo el Stock", p=>true);
+crearSeccion("masvendidos","🔥 Más Vendidos", p=>[2101,2102,2103,2146,2151].includes(p.codigo)) +
+crearSeccion("recomendados","👑 Recomendados", p=>[2117,2118,2121,2139,2143].includes(p.codigo)) +
+crearSeccion("hombre","🧔 Hombre", p=>p.categoria==="masculino") +
+crearSeccion("mujer","💎 Mujer", p=>p.categoria==="femenino") +
+crearSeccion("unisex","🌿 Unisex", p=>p.categoria==="unisex") +
+crearSeccion("stock","📦 Todo el Stock", p=>true);
 
 </script>
 
