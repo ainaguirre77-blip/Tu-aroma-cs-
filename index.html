@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Aroma CS | Perfumes Importados</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:url("Img/fondo.jpg.avif") no-repeat center center fixed;
+background-size:cover;
+color:white;
+}
+
+.overlay{
+background:rgba(0,0,0,0.80);
+min-height:100vh;
+}
+
+header{
+text-align:center;
+padding:40px 20px;
+}
+
+header h1{
+font-size:38px;
+margin:0;
+}
+
+header p{
+opacity:0.8;
+}
+
+.seccion{
+padding:40px 20px;
+}
+
+.seccion h2{
+text-align:center;
+margin-bottom:30px;
+font-size:26px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+max-width:1200px;
+margin:auto;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+border-radius:12px;
+overflow:hidden;
+text-align:center;
+padding-bottom:15px;
+transition:0.3s;
+position:relative;
+}
+
+.card:hover{
+transform:scale(1.03);
+background:rgba(255,255,255,0.15);
+}
+
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.card h3{
+font-size:14px;
+padding:10px;
+min-height:60px;
+}
+
+.precio{
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.boton{
+display:inline-block;
+background:#25D366;
+color:white;
+padding:8px 12px;
+border-radius:8px;
+text-decoration:none;
+font-size:13px;
+}
+
+.boton:hover{
+background:#1ebe5d;
+}
+
+.sin-stock{
+position:absolute;
+top:10px;
+left:10px;
+background:red;
+padding:5px 8px;
+font-size:11px;
+border-radius:6px;
+}
+
+footer{
+text-align:center;
+padding:30px;
+opacity:0.7;
+}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+<header>
+<h1>Tu Aroma CS</h1>
+<p>Perfumes Importados G5 · Envíos a todo Argentina</p>
+</header>
+
+<div id="contenido"></div>
+
+<footer>
+© 2026 Tu Aroma CS
+</footer>
+
+</div>
+
+<script>
+
+const numeroWhatsApp = "5492926546399";
+
+const productos = [
+
+{codigo:2101,nombre:"Jean Paul Gaultier Le Male Elixir 125ml",precio:"$71.500",categoria:"masculino"},
+{codigo:2102,nombre:"Jean Paul Gaultier Le Male Le Parfum 125ml",precio:"$71.500",categoria:"masculino"},
+{codigo:2103,nombre:"Azzaro The Most Wanted 100ml",precio:"$71.500",categoria:"masculino"},
+{codigo:2104,nombre:"Azzaro Elixir 100ml",precio:"$69.000",categoria:"masculino"},
+{codigo:2105,nombre:"Jean Paul Gaultier Divine",precio:"$69.000",categoria:"femenino",stock:false},
+{codigo:2106,nombre:"Hawas Pink 100ml",precio:"$58.500",categoria:"femenino"},
+{codigo:2107,nombre:"Yara Moi 100ml",precio:"$50.700",categoria:"femenino"},
+{codigo:2108,nombre:"Yara Tous 100ml",precio:"$50.700",categoria:"femenino"},
+{codigo:2109,nombre:"Xerjoff Soprano 100ml",precio:"$66.000",categoria:"masculino",stock:false},
+{codigo:2110,nombre:"Honor and Glory 100ml",precio:"$48.750",categoria:"masculino"},
+{codigo:2111,nombre:"Sublime Lattafa 100ml",precio:"$48.750",categoria:"unisex"},
+{codigo:2112,nombre:"Vulcan Feu 100ml",precio:"$56.250",categoria:"unisex"},
+{codigo:2113,nombre:"Fakhar Black 100ml",precio:"$50.700",categoria:"masculino"},
+{codigo:2114,nombre:"Fakhar Rose 100ml",precio:"$48.750",categoria:"femenino"},
+{codigo:2115,nombre:"Mayar Lattafa 100ml",precio:"$48.750",categoria:"femenino"},
+{codigo:2116,nombre:"Mayar Cherry 100ml",precio:"$48.750",categoria:"femenino"},
+{codigo:2117,nombre:"Khamrah Qahwa 100ml",precio:"$52.650",categoria:"masculino"},
+{codigo:2118,nombre:"Khamrah Lattafa 100ml",precio:"$52.650",categoria:"masculino"},
+{codigo:2119,nombre:"Oud For Glory 100ml",precio:"$50.700",categoria:"masculino"},
+{codigo:2120,nombre:"Noble Blush Lattafa 100ml",precio:"$48.750",categoria:"femenino"},
+{codigo:2121,nombre:"9PM Afnan 100ml",precio:"$52.650",categoria:"masculino"},
+{codigo:2122,nombre:"9AM Afnan 100ml",precio:"$50.700",categoria:"masculino"},
+{codigo:2123,nombre:"9PM Rebel 100ml",precio:"$48.750",categoria:"masculino"},
+{codigo:2124,nombre:"Odyssey Artisto 100ml",precio:"$56.250",categoria:"masculino"},
+{codigo:2125,nombre:"Odyssey Aqua 100ml",precio:"$56.250",categoria:"masculino"},
+{codigo:2126,nombre:"Haya Lattafa 100ml",precio:"$56.250",categoria:"femenino"},
+{codigo:2127,nombre:"Eclaire Lattafa 100ml",precio:"$56.250",categoria:"femenino"},
+{codigo:2128,nombre:"Asad Lattafa 100ml",precio:"$50.700",categoria:"masculino"},
+{codigo:2129,nombre:"Asad Bourbon 100ml",precio:"$48.750",categoria:"masculino"},
+{codigo:2130,nombre:"Yara Candy 100ml",precio:"$48.750",categoria:"femenino"},
+{codigo:2131,nombre:"Yara Pink 100ml",precio:"$50.700",categoria:"femenino"},
+{codigo:2132,nombre:"Mandarín Sky 100ml",precio:"$56.250",categoria:"masculino"},
+{codigo:2133,nombre:"Mandarín Sky Elixir 100ml",precio:"$56.250",categoria:"masculino"},
+{codigo:2134,nombre:"Odyssey Spectra 100ml",precio:"$56.250",categoria:"masculino"},
+{codigo:2135,nombre:"Odyssey Limoni 100ml",precio:"$56.250",categoria:"unisex"},
+{codigo:2136,nombre:"Xerjoff Coro 100ml",precio:"$66.000",categoria:"unisex"},
+{codigo:2137,nombre:"The Kingdom 100ml",precio:"$66.000",categoria:"masculino"},
+{codigo:2138,nombre:"Bharara King 100ml",precio:"$66.000",categoria:"masculino"},
+{codigo:2139,nombre:"Liquid Brun 100ml",precio:"$66.000",categoria:"masculino"},
+{codigo:2140,nombre:"Hawas Fire 100ml",precio:"$60.750",categoria:"masculino"},
+{codigo:2141,nombre:"Al Haramain Gold 100ml",precio:"$68.750",categoria:"masculino"},
+{codigo:2142,nombre:"Al Haramain Aqua Dubai 60ml",precio:"$66.000",categoria:"masculino"},
+{codigo:2143,nombre:"Xerjoff Erba Pura 100ml",precio:"$71.500",categoria:"masculino"},
+{codigo:2144,nombre:"Club de Nuit Untold 100ml",precio:"$50.700",categoria:"unisex"},
+{codigo:2145,nombre:"Club de Nuit Maleka 100ml",precio:"$48.750",categoria:"femenino"},
+{codigo:2146,nombre:"Club de Nuit Intense Man 100ml",precio:"$52.650",categoria:"masculino"},
+{codigo:2147,nombre:"Club de Nuit Milestone 100ml",precio:"$50.700",categoria:"masculino"},
+{codigo:2148,nombre:"Club de Nuit Woman 100ml",precio:"$48.750",categoria:"femenino"},
+{codigo:2149,nombre:"Club de Nuit Sillage 100ml",precio:"$50.700",categoria:"masculino"},
+{codigo:2150,nombre:"Club de Nuit Iconic 100ml",precio:"$50.700",categoria:"masculino"},
+{codigo:2151,nombre:"Hawas Ice 100ml",precio:"$60.750",categoria:"masculino"}
+
+];
+
+function crearSeccion(titulo, filtro){
+let html = `<section class="seccion"><h2>${titulo}</h2><div class="grid">`;
+
+productos.filter(filtro).forEach(p=>{
+html += `
+<div class="card">
+${p.stock===false?'<div class="sin-stock">SIN STOCK</div>':''}
+<picture>
+<source srcset="Img/IMG_${p.codigo}.WEBP">
+<source srcset="Img/IMG_${p.codigo}.JPG">
+<source srcset="Img/IMG_${p.codigo}.PNG">
+<img src="Img/IMG_${p.codigo}.JPG">
+</picture>
+<h3>${p.nombre}</h3>
+<div class="precio">${p.precio}</div>
+${p.stock===false?'':
+`<a class="boton" target="_blank" href="https://wa.me/${numeroWhatsApp}?text=Hola!%20Quiero%20${encodeURIComponent(p.nombre)}">Consultar</a>`}
+</div>`;
+});
+
+html += `</div></section>`;
+return html;
+}
+
+document.getElementById("contenido").innerHTML =
+crearSeccion("🔥 Más Vendidos", p=>[2101,2102,2103,2146,2151].includes(p.codigo)) +
+crearSeccion("👑 Recomendados", p=>[2117,2118,2121,2139,2143].includes(p.codigo)) +
+crearSeccion("🧔 Hombre", p=>p.categoria==="masculino") +
+crearSeccion("💎 Mujer", p=>p.categoria==="femenino") +
+crearSeccion("🌿 Unisex", p=>p.categoria==="unisex");
+
+</script>
+
+</body>
+</html>
