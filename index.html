@@ -221,13 +221,8 @@ const productos = [
 ];
 
 function imagenProducto(codigo){
-return `
-<picture>
-<source srcset="Img/IMG_${codigo}.WEBP">
-<source srcset="Img/IMG_${codigo}.JPG">
-<source srcset="Img/IMG_${codigo}.PNG">
-<img src="Img/IMG_${codigo}.JPG">
-</picture>`;
+return `<img src="Img/IMG_${codigo}.WEBP"
+onerror="this.onerror=null;this.src='Img/IMG_${codigo}.JPG';">`;
 }
 
 function crearSeccion(id,titulo,filtro){
