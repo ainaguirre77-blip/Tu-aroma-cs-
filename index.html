@@ -221,10 +221,15 @@ const productos = [
 ];
 
 function imagenProducto(codigo){
-return `<img src="Img/IMG_${codigo}.JPG"
-onerror="this.onerror=null;this.src='Img/IMG_${codigo}.jpg';
-this.onerror=null;this.src='Img/IMG_${codigo}.WEBP';
-this.onerror=null;this.src='Img/IMG_${codigo}.webp';">`;
+return `<img src="Img/IMG_${codigo}.WEBP"
+onerror="
+this.onerror=null;
+this.src='Img/IMG_${codigo}.webp';
+this.onerror=null;
+this.src='Img/IMG_${codigo}.JPG';
+this.onerror=null;
+this.src='Img/IMG_${codigo}.jpg';
+">`;
 }
 
 function crearSeccion(id,titulo,filtro){
