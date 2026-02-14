@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Perfumes</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#111;
+    color:white;
+    margin:0;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.filtros{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.filtros button{
+    background:#222;
+    color:white;
+    border:1px solid #333;
+    padding:10px 15px;
+    margin:5px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.filtros button:hover{
+    background:#25D366;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#1c1c1c;
+    border-radius:12px;
+    padding:15px;
+    text-align:center;
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.nombre{
+    font-size:14px;
+    margin:10px 0;
+    min-height:40px;
+}
+
+.precio{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.boton{
+    display:inline-block;
+    background:#25D366;
+    color:white;
+    padding:10px 15px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>CATÁLOGO DISPONIBLE</h1>
+
+<div class="filtros">
+    <button onclick="filtrar('todos')">Todos</button>
+    <button onclick="filtrar('masVendidos')">🔥 Más Vendidos</button>
+    <button onclick="filtrar('recomendados')">⭐ Recomendados</button>
+    <button onclick="filtrar('masculino')">👨 Hombre</button>
+    <button onclick="filtrar('femenino')">👩 Mujer</button>
+    <button onclick="filtrar('unisex')">⚧ Unisex</button>
+</div>
+
+<div class="grid" id="catalogo"></div>
+
+<script>
+
+const productos = [
+{codigo:2101, nombre:"Jean Paul Gaultier Le Male Elixir 125ml (masculino)", precio:71500, ext:"JPG"},
+{codigo:2102, nombre:"Jean Paul Gaultier Le Male Le Parfum 125ml (masculino)", precio:71500, ext:"WEBP"},
+{codigo:2103, nombre:"Azzaro The Most Wanted 100ml (masculino)", precio:71500, ext:"WEBP"},
+{codigo:2104, nombre:"Azzaro Elixir 100ml (masculino)", precio:69000, ext:"JPG"},
+{codigo:2105, nombre:"Jean Paul Gaultier Divine (femenino)", precio:69000, ext:"JPG"},
+{codigo:2106, nombre:"Hawas Pink 100ml (femenino)", precio:58500, ext:"WEBP"},
+{codigo:2107, nombre:"Yara Moi 100ml (femenino)", precio:50700, ext:"PNG"},
+{codigo:2108, nombre:"Yara Tous 100ml (femenino)", precio:50700, ext:"JPG"},
+{codigo:2109, nombre:"Xerjoff Soprano 100ml (masculino)", precio:66000, ext:"JPG"},
+{codigo:2110, nombre:"Honor and Glory 100ml (masculino)", precio:48750, ext:"WEBP"},
+{codigo:2111, nombre:"Sublime Lattafa 100ml (unisex)", precio:48750, ext:"WEBP"},
+{codigo:2112, nombre:"Vulcan Feu 100ml (unisex)", precio:56250, ext:"JPG"},
+{codigo:2113, nombre:"Fakhar Black 100ml (masculino)", precio:50700, ext:"JPG"},
+{codigo:2114, nombre:"Fakhar Rose 100ml (femenino)", precio:48750, ext:"WEBP"},
+{codigo:2115, nombre:"Mayar Lattafa 100ml (femenino)", precio:48750, ext:"WEBP"},
+{codigo:2116, nombre:"Mayar Cherry 100ml (femenino)", precio:48750, ext:"WEBP"},
+{codigo:2117, nombre:"Khamrah Qahwa 100ml (masculino)", precio:52650, ext:"JPG"},
+{codigo:2118, nombre:"Khamrah Lattafa 100ml (masculino)", precio:52650, ext:"JPG"},
+{codigo:2119, nombre:"Oud For Glory 100ml (masculino)", precio:50700, ext:"JPG"},
+{codigo:2120, nombre:"Noble Blush Lattafa 100ml (femenino)", precio:48750, ext:"WEBP"},
+{codigo:2121, nombre:"9PM Afnan 100ml (masculino)", precio:52650, ext:"WEBP"},
+{codigo:2122, nombre:"9AM Afnan 100ml (masculino)", precio:50700, ext:"WEBP"},
+{codigo:2123, nombre:"9PM Rebel 100ml (masculino)", precio:48750, ext:"WEBP"},
+{codigo:2124, nombre:"Odyssey Artisto 100ml (masculino)", precio:56250, ext:"WEBP"},
+{codigo:2125, nombre:"Odyssey Aqua 100ml (masculino)", precio:56250, ext:"WEBP"},
+{codigo:2126, nombre:"Haya Lattafa 100ml (femenino)", precio:56250, ext:"WEBP"},
+{codigo:2127, nombre:"Eclaire Lattafa 100ml (femenino)", precio:56250, ext:"WEBP"},
+{codigo:2128, nombre:"Asad Lattafa 100ml (masculino)", precio:50700, ext:"WEBP"},
+{codigo:2129, nombre:"Asad Bourbon 100ml (masculino)", precio:48750, ext:"WEBP"},
+{codigo:2130, nombre:"Yara Candy 100ml (femenino)", precio:48750, ext:"JPG"},
+{codigo:2131, nombre:"Yara Pink 100ml (femenino)", precio:50700, ext:"JPG"},
+{codigo:2132, nombre:"Mandarín Sky 100ml (masculino)", precio:56250, ext:"WEBP"},
+{codigo:2133, nombre:"Mandarín Sky Elixir 100ml (masculino)", precio:56250, ext:"JPG"},
+{codigo:2134, nombre:"Odyssey Spectra 100ml (masculino)", precio:56250, ext:"JPG"},
+{codigo:2135, nombre:"Odyssey Limoni 100ml (unisex)", precio:56250, ext:"WEBP"},
+{codigo:2136, nombre:"Xerjoff Coro 100ml (unisex)", precio:66000, ext:"WEBP"},
+{codigo:2137, nombre:"The Kingdom 100ml (masculino)", precio:66000, ext:"WEBP"},
+{codigo:2138, nombre:"Bharara King 100ml (masculino)", precio:66000, ext:"WEBP"},
+{codigo:2139, nombre:"Liquid Brun 100ml (masculino)", precio:66000, ext:"WEBP"},
+{codigo:2140, nombre:"Hawas Fire 100ml (masculino)", precio:60750, ext:"WEBP"},
+{codigo:2141, nombre:"Al Haramain Gold 100ml (masculino)", precio:68750, ext:"WEBP"},
+{codigo:2142, nombre:"Al Haramain Aqua Dubai 60ml (masculino)", precio:66000, ext:"WEBP"},
+{codigo:2143, nombre:"Xerjoff Erba Pura 100ml (masculino)", precio:71500, ext:"JPG"},
+{codigo:2144, nombre:"Club de Nuit Untold 100ml (unisex)", precio:50700, ext:"JPG"},
+{codigo:2145, nombre:"Club de Nuit Maleka 100ml (femenino)", precio:48750, ext:"JPG"},
+{codigo:2146, nombre:"Club de Nuit Intense Man 100ml (masculino)", precio:52650, ext:"WEBP"},
+{codigo:2147, nombre:"Club de Nuit Milestone 100ml (masculino)", precio:50700, ext:"WEBP"},
+{codigo:2148, nombre:"Club de Nuit Woman 100ml (femenino)", precio:48750, ext:"WEBP"},
+{codigo:2149, nombre:"Club de Nuit Sillage 100ml (masculino)", precio:50700, ext:"WEBP"},
+{codigo:2150, nombre:"Club de Nuit Iconic 100ml (masculino)", precio:50700, ext:"WEBP"},
+{codigo:2151, nombre:"Hawas Ice 100ml (masculino)", precio:60750, ext:"JPG"}
+];
+
+const masVendidos = [2101,2103,2136,2143,2140,2146,2121];
+const recomendados = [2117,2118,2128,2144,2151];
+
+const contenedor = document.getElementById("catalogo");
+
+function render(lista){
+    contenedor.innerHTML = "";
+    lista.forEach(p => {
+        const mensaje = encodeURIComponent(
+            `hola ¿cómo estás? Quiero el ${p.nombre}. Gracias`
+        );
+
+        contenedor.innerHTML += `
+        <div class="card">
+            <img src="Img/IMG_${p.codigo}.${p.ext}" alt="${p.nombre}">
+            <div class="nombre">${p.nombre}</div>
+            <div class="precio">$${p.precio.toLocaleString("es-AR")}</div>
+            <a class="boton" target="_blank"
+               href="https://wa.me/542926546399?text=${mensaje}">
+               Comprar
+            </a>
+        </div>`;
+    });
+}
+
+function filtrar(tipo){
+    if(tipo === "todos"){
+        render(productos);
+    }
+    else if(tipo === "masVendidos"){
+        render(productos.filter(p => masVendidos.includes(p.codigo)));
+    }
+    else if(tipo === "recomendados"){
+        render(productos.filter(p => recomendados.includes(p.codigo)));
+    }
+    else{
+        render(productos.filter(p => p.nombre.toLowerCase().includes(tipo)));
+    }
+}
+
+render(productos);
+
+</script>
+
+</body>
+</html>
