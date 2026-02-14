@@ -16,7 +16,14 @@ body{
 
 h1{
     text-align:center;
-    margin-bottom:30px;
+    margin-bottom:40px;
+}
+
+h2{
+    margin-top:50px;
+    margin-bottom:20px;
+    border-bottom:1px solid #333;
+    padding-bottom:5px;
 }
 
 .grid{
@@ -56,12 +63,20 @@ h1{
     margin-bottom:10px;
 }
 
-.sin-stock{
-    background:red;
-    padding:5px;
-    border-radius:6px;
-    font-size:12px;
-    margin-top:5px;
+.boton{
+    display:inline-block;
+    background:#25D366;
+    color:white;
+    padding:10px 15px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.boton:hover{
+    background:#1ebe5d;
 }
 </style>
 </head>
@@ -70,7 +85,17 @@ h1{
 
 <h1>CATÁLOGO DISPONIBLE</h1>
 
-<div class="grid" id="contenedor"></div>
+<h2>🔥 RECOMENDADOS</h2>
+<div class="grid" id="recomendados"></div>
+
+<h2>👨 MASCULINOS</h2>
+<div class="grid" id="masculinos"></div>
+
+<h2>👩 FEMENINOS</h2>
+<div class="grid" id="femeninos"></div>
+
+<h2>⚧ UNISEX</h2>
+<div class="grid" id="unisex"></div>
 
 <script>
 
@@ -128,9 +153,22 @@ const productos = [
 {codigo:2151, nombre:"Hawas Ice 100ml (masculino)", precio:60750, ext:"JPG"},
 ];
 
-const contenedor = document.getElementById("contenedor");
+const recomendadosCodigos = [2101,2103,2136,2143,2140];
+
+const secciones = {
+    recomendados: document.getElementById("recomendados"),
+    masculinos: document.getElementById("masculinos"),
+    femeninos: document.getElementById("femeninos"),
+    unisex: document.getElementById("unisex"),
+};
 
 productos.forEach(p => {
+
+    if(p.sinStock) return;
+
+    const mensaje = encodeURIComponent(
+        `Hola, quiero comprar:\n${p.nombre}\nPrecio: $${p.precio.toLocaleString("es-AR")}`
+    );
 
     const card = document.createElement("div");
     card.className = "card";
@@ -139,10 +177,25 @@ productos.forEach(p => {
         <img src="Img/IMG_${p.codigo}.${p.ext}" alt="${p.nombre}">
         <div class="nombre">${p.nombre}</div>
         <div class="precio">$${p.precio.toLocaleString("es-AR")}</div>
-        ${p.sinStock ? '<div class="sin-stock">SIN STOCK</div>' : ''}
+        <a class="boton" target="_blank"
+           href="https://wa.me/542926546399?text=${mensaje}">
+           Comprar por WhatsApp
+        </a>
     `;
 
-    contenedor.appendChild(card);
+    if(recomendadosCodigos.includes(p.codigo)){
+        secciones.recomendados.appendChild(card);
+    }
+
+    if(p.nombre.toLowerCase().includes("masculino")){
+        secciones.masculinos.appendChild(card);
+    }
+    else if(p.nombre.toLowerCase().includes("femenino")){
+        secciones.femeninos.appendChild(card);
+    }
+    else if(p.nombre.toLowerCase().includes("unisex")){
+        secciones.unisex.appendChild(card);
+    }
 
 });
 
